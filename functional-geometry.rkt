@@ -50,8 +50,8 @@
   (lambda (v)
     (add-vect
      (origin-frame frame)
-     (add-vect (scale-vect (xcor-vect v) (edge1-frame frame))
-               (scale-vect (ycor-vect v) (edge2-frame frame))))))
+     (add-vect (scale-vect (edge1-frame frame) (xcor-vect v))
+               (scale-vect (edge2-frame frame) (ycor-vect v))))))
 
 ;; painter generator
 (define (segments->painter segment-list)
