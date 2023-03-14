@@ -23,3 +23,11 @@
 (define (scale-vect v s)
   (make-vect (* s (xcor-vect v))
              (* s (ycor-vect v))))
+
+;; vector blocks
+(define i-hat (make-vect 1 0))
+(define j-hat (transpose i-hat))
+
+(define origin-vect (make-vect 0 0))
+(define diag-vect (make-vect 1 1))
+(define split-vect (make-vect 0.5 0))
