@@ -133,3 +133,18 @@
   (lambda (frame)
     (transform1 frame)
     (transform2 frame)))
+
+;; painter composition
+(define (beside painter1 painter2)
+  (next-to (paint-left painter1) (paint-right painter2)))
+(define (below painter1 painter2)
+  (next-to (paint-top painter1) (paint-bot painter2)))
+
+(define (split compose-main compose-smaller)
+  (lambda (painter n)
+    (if (zero? n) painter
+        (let ((smaller ((split compose-main compose-smaller) painter (- n 1))))
+          (compose-main painter (compose-smaller smaller smaller))))))
+
+(define right-split (split beside below))
+(define up-split (split below beside))
