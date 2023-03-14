@@ -93,3 +93,43 @@
                              (sub-vect (m corner1) new-orig)
                              (sub-vect (m corner2) new-orig)
                              (dc frame)))))))
+
+;; transformers
+(define (flip-vert painter)
+  (transform-painter painter j-hat diag-vect origin-vect))
+(define (flip-horiz painter)
+  (transform-painter painter i-hat origin-vect diag-vect))
+
+(define (shrink-to-upper-right painter)
+  (let ((edge1 (make-vect 1 0.5)))
+    (transform-painter painter
+                       (scale-vect diag-vect 0.5)
+                       edge1
+                       (transpose edge1))))
+
+(define (squash-inwards painter)
+  (let ((edge1 (make-vect 0.65 0.35)))
+    (transform-painter painter
+                       (scale-vect diag-vect 0.35)
+                       edge1
+                       (transpose edge1))))
+
+(define (rotate90 painter)
+  (transform-painter painter i-hat diag-vect origin-vect))
+(define (rotate180 painter) (rotate90 (rotate90 painter)))
+(define (rotate270 painter) (rotate90 (rotate180 painter)))
+(define (rotate360 painter) painter)
+
+(define (paint-left painter)
+  (transform-painter painter origin-vect split-vect j-hat))
+(define (paint-right painter)
+  (transform-painter painter split-vect i-hat (make-vect 0.5 1)))
+(define (paint-top painter)
+  (transform-painter painter origin-vect i-hat split-vect))
+(define (paint-bot painter)
+  (transform-painter painter split-vect (make-vect 1 0.5) j-hat))
+
+(define (next-to transform1 transform2)
+  (lambda (frame)
+    (transform1 frame)
+    (transform2 frame)))
