@@ -148,3 +148,13 @@
 
 (define right-split (split beside below))
 (define up-split (split below beside))
+
+;; main
+(define target1 (make-bitmap 100 100))
+(define dc1 (new bitmap-dc% [bitmap target1]))
+(define frame1
+  (let ((edge1 (scale-vect split-vect 100)))
+    (make-frame origin-vect edge1 (transpose edge1) dc1)))
+
+(make-object image-snip% target1)
+(frame-diamond frame1)
