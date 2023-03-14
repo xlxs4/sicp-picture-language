@@ -36,3 +36,11 @@
 (define (make-segment x y) (cons x y))
 (define (start-segment s) (car s))
 (define (end-segment s) (cdr s))
+
+;; frame constructor/selectors
+(define (make-frame orig e1 e2 dc)
+  (list orig e1 e2 dc))
+(define (origin-frame frame) (car frame))
+(define (edge1-frame frame) (cadr frame))
+(define (edge2-frame frame) (caddr frame))
+(define (dc frame) (cadddr frame)) ; bitmap Display Context
