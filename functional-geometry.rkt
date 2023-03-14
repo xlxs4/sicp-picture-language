@@ -66,3 +66,20 @@
                (xcor-vect end)
                (ycor-vect end))))
      segment-list)))
+
+;; painters
+(define (frame-outline frame)
+  ((segments->painter (list (make-segment origin-vect i-hat)
+                            (make-segment i-hat diag-vect)
+                            (make-segment diag-vect j-hat)
+                            (make-segment j-hat origin-vect))) frame))
+
+(define (frame-cross frame)
+  ((segments->painter (list (make-segment origin-vect diag-vect)
+                            (make-segment i-hat j-hat))) frame))
+
+(define (frame-diamond frame)
+  ((segments->painter (list (make-segment (make-vect 0 0.5) (make-vect 0.5 1))
+                            (make-segment (make-vect 0.5 1) (make-vect 1 0.5))
+                            (make-segment (make-vect 1 0.5) split-vect)
+                            (make-segment split-vect (make-vect 0 0.5)))) frame))
