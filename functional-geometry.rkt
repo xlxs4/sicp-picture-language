@@ -31,3 +31,8 @@
 (define origin-vect (make-vect 0 0))
 (define diag-vect (make-vect 1 1))
 (define split-vect (make-vect 0.5 0))
+
+;; segment constructor/selectors
+(define (make-segment x y) (cons x y))
+(define (start-segment s) (car s))
+(define (end-segment s) (cdr s))
