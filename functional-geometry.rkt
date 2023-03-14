@@ -83,3 +83,13 @@
                             (make-segment (make-vect 0.5 1) (make-vect 1 0.5))
                             (make-segment (make-vect 1 0.5) split-vect)
                             (make-segment split-vect (make-vect 0 0.5)))) frame))
+
+;; transformer generator
+(define (transform-painter painter orig corner1 corner2)
+  (lambda (frame)
+    (let ((m (frame-coord-map frame)))
+      (let ((new-orig (m orig)))
+        (painter (make-frame new-orig
+                             (sub-vect (m corner1) new-orig)
+                             (sub-vect (m corner2) new-orig)
+                             (dc frame)))))))
