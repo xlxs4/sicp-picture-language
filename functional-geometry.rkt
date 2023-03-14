@@ -52,3 +52,17 @@
      (origin-frame frame)
      (add-vect (scale-vect (xcor-vect v) (edge1-frame frame))
                (scale-vect (ycor-vect v) (edge2-frame frame))))))
+
+;; painter generator
+(define (segments->painter segment-list)
+  (lambda (frame)
+    (for-each
+     (lambda (segment)
+       (let ((start ((frame-coord-map frame) (start-segment segment)))
+             (end ((frame-coord-map frame) (end-segment segment))))
+         (send (dc frame) draw-line
+               (xcor-vect start)
+               (ycor-vect start)
+               (xcor-vect end)
+               (ycor-vect end))))
+     segment-list)))
