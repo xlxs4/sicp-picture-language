@@ -57,15 +57,17 @@
 (define (segments->painter segment-list)
   (lambda (frame)
     (for-each
-     (lambda (segment)
-       (let ((start ((frame-coord-map frame) (start-segment segment)))
-             (end ((frame-coord-map frame) (end-segment segment))))
-         (send (dc frame) draw-line
-               (xcor-vect start)
-               (ycor-vect start)
-               (xcor-vect end)
-               (ycor-vect end))))
+     (lambda (segment) (draw-segment dc frame segment))
      segment-list)))
+
+(define (draw-segment dc frame segment)
+  (let ((start ((frame-coord-map frame) (start-segment segment)))
+        (end ((frame-coord-map frame) (end-segment segment))))
+    (send (dc frame) draw-line
+          (xcor-vect start)
+          (ycor-vect start)
+          (xcor-vect end)
+          (ycor-vect end))))
 
 ;; painters
 (define (frame-outline frame)
