@@ -155,6 +155,14 @@
 (define right-split (split beside below))
 (define up-split (split below beside))
 
+(define (corner-split painter n)
+  (if (zero? n) painter
+      (let ((up (up-split painter (- n 1)))
+            (right (right-split painter (- n 1)))
+            (corner (corner-split painter (- n 1))))
+        (beside (below painter up)
+                (below right corner)))))
+
 ;; main
 (define target1 (make-bitmap 100 100))
 (define dc1 (new bitmap-dc% [bitmap target1]))
