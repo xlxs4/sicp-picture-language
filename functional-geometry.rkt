@@ -142,6 +142,10 @@
 (define (below painter1 painter2)
   (next-to (paint-top painter1) (paint-bot painter2)))
 
+(define (flipped-pairs painter)
+  (let ((painter2 (beside painter (flip-vert painter))))
+    (below painter2 painter2)))
+
 (define (split compose-main compose-smaller)
   (lambda (painter n)
     (if (zero? n) painter
